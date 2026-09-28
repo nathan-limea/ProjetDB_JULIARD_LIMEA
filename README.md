@@ -3,24 +3,24 @@
 ## Étape 1 : Analyse des besoins
 
 ### 1. Prompt RICARDO utilisé
-```text
-[R - Rôle] Agis en tant que Chief Data Officer et Architecte de Bases de Données expert, spécialisé dans le secteur de l'e-sport et des plateformes de compétition en ligne.
-[I - Instructions] 1. Analyse le contexte métier d'une plateforme d'organisation de tournois e-sport. 2. Formule une liste de règles métier (RM) claires, précises et numérotées. 3. Rédige un dictionnaire de données complet sous forme de tableau Markdown respectant la 3ème Forme Normale (3FN).
-[C - Contexte] Nous développons la base de données relationnelle d'une plateforme de gestion de tournois e-sport en ligne (jeux type Rocket League, Valorant). La plateforme doit gérer :
+
+**[R - Rôle]** Agis en tant que Chief Data Officer et Architecte de Bases de Données expert, spécialisé dans le secteur de l'e-sport et des plateformes de compétition en ligne.
+**[I - Instructions]** 1. Analyse le contexte métier d'une plateforme d'organisation de tournois e-sport. 2. Formule une liste de règles métier (RM) claires, précises et numérotées. 3. Rédige un dictionnaire de données complet sous forme de tableau Markdown respectant la 3ème Forme Normale (3FN).
+**[C - Contexte]** Nous développons la base de données relationnelle d'une plateforme de gestion de tournois e-sport en ligne (jeux type Rocket League, Valorant). La plateforme doit gérer :
 - Les joueurs et leur parrainage.
 - Les équipes composées de joueurs.
 - Les tournois et leurs sponsors.
 - Les matchs d'un tournoi.
 - Les manches (maps/rounds) jouées au sein d'un match.
 - Les serveurs de jeu et les arbitres affectés aux matchs.
-[A - Contraintes Additionnelles] La modélisation et le dictionnaire de données doivent obligatoirement intégrer les trois éléments avancés suivants :
+**[A - Contraintes Additionnelles]** La modélisation et le dictionnaire de données doivent obligatoirement intégrer les trois éléments avancés suivants :
 1. Une association réflexive : un joueur peut parrainer d'autres joueurs.
 2. Une entité faible / identification relative : la manche (ou map) dépend obligatoirement d'un match et est identifiée de manière relative par rapport à celui-ci.
 3. Une association ternaire (ou n-aire n > 2) : la planification d'un match associe un Match, un Serveur de jeu et un Arbitre.
 Veille à ce que tous les attributs soient en 3FN (atomiques, sans dépendance partielle ni transitive).
-[R - Références] Inspiré des fonctionnalités et structures de données des plateformes e-sport de référence comme Start.gg, Faceit et Battlefy.
-[D - Rendement Désiré] Fournis une réponse structurée en deux parties : Partie 1 : "Règles Métier" (liste numérotée RM1, RM2, etc.). Partie 2 : "Dictionnaire de Données" (Tableau Markdown avec les colonnes : Entité, Nom de l'attribut, Code attribut, Type de donnée, Contraintes / Propriétés).
-[O - Objectifs] Obtenir l'analyse des besoins nécessaire pour construire un Modèle Conceptuel de Données (MCD) valide et normalisé pour notre mini-projet de base de données.
+**[R - Références]** Inspiré des fonctionnalités et structures de données des plateformes e-sport de référence comme Start.gg, Faceit et Battlefy.
+**[D - Rendement Désiré]** Fournis une réponse structurée en deux parties : Partie 1 : "Règles Métier" (liste numérotée RM1, RM2, etc.). Partie 2 : "Dictionnaire de Données" (Tableau Markdown avec les colonnes : Entité, Nom de l'attribut, Code attribut, Type de donnée, Contraintes / Propriétés).
+**[O - Objectifs]** Obtenir l'analyse des besoins nécessaire pour construire un Modèle Conceptuel de Données (MCD) valide et normalisé pour notre mini-projet de base de données.
 
 ### 2. Règles Métier (RM)
 
@@ -89,3 +89,7 @@ Veille à ce que tous les attributs soient en 3FN (atomiques, sans dépendance p
 | | Carte / Map jouée | `nom_map` | VARCHAR(50) | NOT NULL |
 | | Durée (secondes) | `duree_secondes` | INT | NOT NULL |
 | | Identifiant gagnant | `id_equipe_gagnante` | INT | FK (EQUIPE.id_equipe), NOT NULL |
+
+## Étape 2 : Modèle Conceptuel de Données (MCD)
+
+![MCD du projet](./MCD.png)
