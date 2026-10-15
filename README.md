@@ -92,4 +92,4 @@ Veille à ce que tous les attributs soient en 3FN (atomiques, sans dépendance p
 
 ## Étape 2 : Modèle Conceptuel de Données (MCD)
 
-![MCD du projet](./MCD.png)
+![MCD du projet](C:\Users\nathan\Documents\ECOLE\Bases_de_données_1_Concepts_de_base)
