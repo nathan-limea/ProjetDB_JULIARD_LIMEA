@@ -106,7 +106,7 @@
 
 ## Étape 5 : interrogation de la BD 
 
-### Scénario d'utilisation
+### 1. Scénario d'utilisation
 
 * **Acteur / Rôle** : Analyste Data / Manager Sportif au sein de la structure e-sport.
 * **Contexte & Objectif** : Suivre l'efficacité des joueurs, analyser les résultats des matchs par tournoi, identifier les jeux générant le plus de compétitions et ajuster la stratégie de recrutement ainsi que le planning d'entraînement des équipes.
@@ -116,11 +116,17 @@
   - Effectifs des joueurs par équipe et historique des confrontations.
   - Identification des jeux inutilisés et des équipes actives sans joueurs affectés.
     
-## Étude des plans d'exécution
+
+### 2. Fichier de requêtes SQL (`4_interrogation.sql`)
+
+L'ensemble des 20 requêtes SQL couvrant les différentes catégories requises est implémenté et commenté dans le fichier dédié :
+ **`4_interrogation.sql`**
+ 
+### 3. Étude des plans d'exécution
 
 Pour illustrer l'optimisation des requêtes, nous avons analysé une requête de sélection et de jointure complexe : la recherche des noms de tournois et des éditeurs associés pour l'éditeur `'Riot Games'`.
 
-### 1. Requête SQL analysée:
+#### a. Requête SQL analysée:
 
 ```
 SELECT t.nom_tournoi, j.editeur 
@@ -134,17 +140,17 @@ Opérateurs algébriques utilisés :
 - La jointure ($\bowtie$) : associe la table Tournoi et la table Jeu sur la condition Tournoi.id_jeu = Jeu.id_jeu.
 - La projection ($\pi$) : extrait uniquement les attributs nom_tournoi et editeur.
 
-### 2. Comparaison des plans d'exécution
+#### b. Comparaison des plans d'exécution
 
-#### Plan A : Jointure globale avant sélection (Non optimisé)
+##### Plan A : Jointure globale avant sélection (Non optimisé)
 
 Dans ce plan, le système réalise d'abord la jointure complète entre toutes les lignes de Tournoi et de Jeu, puis filtre le résultat.
 
-##### Arbre relationnel (Plan A) : 
+###### Arbre relationnel (Plan A) : 
 
 <img src="./Arbre_A.png" alt="Arbre relationnel Plan A" width="400"/>
 
-##### Calcul du coût (Plan A) :
+###### Calcul du coût (Plan A) :
 
 Lecture des tables sources : $5 + 5 = 10$ lignes lues.
 - Jointure ($\bowtie$) : croisement de 5 tournois et 5 jeux $\rightarrow 5 \times 5 = 25$ opérations intermédiaires pour générer 5 lignes jointes.
@@ -153,15 +159,15 @@ Lecture des tables sources : $5 + 5 = 10$ lignes lues.
 - 
 Coût total = $10 + 25 + 5 + 2 = 42$ opérations.
 
-#### Plan B : Poussée de la sélection / Push-down Predicate (Optimisé)
+##### Plan B : Poussée de la sélection / Push-down Predicate (Optimisé)
 
 Dans ce plan, la sélection est poussée au plus bas de l'arbre sur la table Jeu avant de réaliser la jointure.
 
-##### Arbre relationnel (Plan B) : 
+###### Arbre relationnel (Plan B) : 
 
 <img src="./Arbre_B.png" alt="Arbre relationnel Plan B" width="400"/>
 
-##### Calcul du coût (Plan B) :
+###### Calcul du coût (Plan B) :
 
 Lecture des tables sources : $5 + 5 = 10$ lignes lues.
 - Sélection ($\sigma$) en amont sur Jeu : filtrage sur 5 jeux $\rightarrow 5$ opérations (conserve 2 jeux).
@@ -170,7 +176,7 @@ Lecture des tables sources : $5 + 5 = 10$ lignes lues.
 
 Coût total = $10 + 5 + 10 + 2 = 27$ opérations.
 
-#### Conclusion sur l'optimisation
+##### Conclusion sur l'optimisation
 
 Le Plan B est le plan d'exécution optimisé retenu. 
 En appliquant l'opérateur de sélection ($\sigma$) au plus près des données sources (Push-down Predicate), on réduit la table Jeu de 5 à 2 lignes avant la jointure. 
