@@ -4,23 +4,26 @@
 
 ### 1. Prompt RICARDO utilisé
 
-**[R - Rôle]** Agis en tant que Chief Data Officer et Architecte de Bases de Données expert, spécialisé dans le secteur de l'e-sport et des plateformes de compétition en ligne.
-**[I - Instructions]** 1. Analyse le contexte métier d'une plateforme d'organisation de tournois e-sport. 2. Formule une liste de règles métier (RM) claires, précises et numérotées. 3. Rédige un dictionnaire de données complet sous forme de tableau Markdown respectant la 3ème Forme Normale (3FN).
-**[C - Contexte]** Nous développons la base de données relationnelle d'une plateforme de gestion de tournois e-sport en ligne (jeux type Rocket League, Valorant). La plateforme doit gérer :
-- Les joueurs et leur parrainage.
-- Les équipes composées de joueurs et leurs capitaines.
-- Les tournois et leurs sponsors.
-- Les matchs d'un tournoi opposant deux équipes.
-- Les manches (maps/rounds) jouées au sein d'un match et l'équipe gagnante.
-- Les serveurs de jeu et les arbitres affectés aux matchs.
-**[A - Contraintes Additionnelles]** La modélisation et le dictionnaire de données doivent obligatoirement intégrer les trois éléments avancés suivants :
-1. Une association réflexive : un joueur peut parrainer d'autres joueurs (`PARRAINER`).
-2. Une entité faible / identification relative : la manche (`MANCHE`) dépend obligatoirement d'un match et est identifiée de manière relative par rapport à celui-ci (`1,1(R)`).
-3. Une association ternaire (ou n-aire n > 2) : la planification d'un match associe un Match, un Serveur de jeu et un Arbitre (`PLANIFIER`).
-Veille à ce que tous les attributs soient en 3FN (atomiques, sans dépendance partielle ni transitive).
-**[R - Références]** Inspiré des fonctionnalités et structures de données des plateformes e-sport de référence comme Start.gg, Faceit et Battlefy.
-**[D - Rendement Désiré]** Fournis une réponse structurée en deux parties : Partie 1 : "Règles Métier" (liste numérotée RM1, RM2, etc.). Partie 2 : "Dictionnaire de Données" (Tableau Markdown avec les colonnes : Entité / Association, Code attribut, Type de donnée, Contraintes / Propriétés).
-**[O - Objectifs]** Obtenir l'analyse des besoins nécessaire pour construire un Modèle Conceptuel de Données (MCD) valide et normalisé pour notre mini-projet de base de données.
+* **[R - Rôle]** Agis en tant que Chief Data Officer et Architecte de Bases de Données expert, spécialisé dans le secteur de l'e-sport et des plateformes de compétition en ligne.
+* **[I - Instructions]** 
+  1. Analyse le contexte métier d'une plateforme d'organisation de tournois e-sport. 
+  2. Formule une liste de règles métier (RM) claires, précises et numérotées. 
+  3. Rédige un dictionnaire de données complet sous forme de tableau Markdown respectant la 3ème Forme Normale (3FN).
+* **[C - Contexte]** Nous développons la base de données relationnelle d'une plateforme de gestion de tournois e-sport en ligne (jeux type Rocket League, Valorant). La plateforme doit gérer :
+  - Les joueurs et leur parrainage.
+  - Les équipes composées de joueurs et leurs capitaines.
+  - Les tournois et leurs sponsors.
+  - Les matchs d'un tournoi opposant deux équipes.
+  - Les manches (maps/rounds) jouées au sein d'un match et l'équipe gagnante.
+  - Les serveurs de jeu et les arbitres affectés aux matchs.
+* **[A - Contraintes Additionnelles]** La modélisation et le dictionnaire de données doivent obligatoirement intégrer les trois éléments avancés suivants :
+  1. Une association réflexive : un joueur peut parrainer d'autres joueurs (`PARRAINER`).
+  2. Une entité faible / identification relative : la manche (`MANCHE`) dépend obligatoirement d'un match et est identifiée de manière relative par rapport à celui-ci (`1,1(R)`).
+  3. Une association ternaire (ou n-aire n > 2) : la planification d'un match associe un Match, un Serveur de jeu et un Arbitre (`PLANIFIER`).
+  Veille à ce que tous les attributs soient en 3FN (atomiques, sans dépendance partielle ni transitive).
+* **[R - Références]** Inspiré des fonctionnalités et structures de données des plateformes e-sport de référence comme Start.gg, Faceit et Battlefy.
+* **[D - Rendement Désiré]** Fournis une réponse structurée en deux parties : Partie 1 : "Règles Métier" (liste numérotée RM1, RM2, etc.). Partie 2 : "Dictionnaire de Données" (Tableau Markdown avec les colonnes : Entité / Association, Code attribut, Type de donnée, Contraintes / Propriétés).
+* **[O - Objectifs]** Obtenir l'analyse des besoins nécessaire pour construire un Modèle Conceptuel de Données (MCD) valide et normalisé pour notre mini-projet de base de données.
 
 ---
 
@@ -88,14 +91,14 @@ Veille à ce que tous les attributs soient en 3FN (atomiques, sans dépendance p
 
 ### III.A. MLD
 
-* JOUEUR (<ins>id_joueur</ins>, pseudo, email, mot_de_passe, date_inscription, #id_joueur_parrain)
-* EQUIPE (<ins>id_equipe</ins>, nom_equipe, date_creation, #id_joueur)
-* TOURNOI (<ins>id_tournoi</ins>, nom_tournoi, jeu, cash_prize, date_debut, date_fin)
-* SERVEUR (<ins>id_serveur</ins>, nom_serveur, adresse_ip, region)
-* ARBITRE (<ins>id_arbitre</ins>, nom_arbitre, prenom_arbitre, niveau_certification)
-* SPONSOR (<ins>id_sponsor</ins>, nom_sponsor, email_sponsor)
-* MATCH (<ins>id_match</ins>, date_heure, statut_match, score_equipe_a, score_equipe_b, #id_tournoi, #id_equipe_a, #id_equipe_b, #id_serveur, #id_arbitre)
-* MANCHE (<ins>id_match</ins>, <ins>numero_manche</ins>, nom_map, duree_seconde, #id_equipe_gagnante)
-* APPARTENIR (<ins>#id_joueur</ins>, <ins>#id_equipe</ins>)
-* PARTICIPER (<ins>#id_equipe</ins>, <ins>#id_tournoi</ins>)
-* SPONSORISER (<ins>#id_sponsor</ins>, <ins>#id_tournoi</ins>)
+- JOUEUR (<ins>id_joueur</ins>, pseudo, email, mot_de_passe, date_inscription, #id_joueur_parrain)
+- EQUIPE (<ins>id_equipe</ins>, nom_equipe, date_creation, #id_joueur)
+- TOURNOI (<ins>id_tournoi</ins>, nom_tournoi, jeu, cash_prize, date_debut, date_fin)
+- SERVEUR (<ins>id_serveur</ins>, nom_serveur, adresse_ip, region)
+- ARBITRE (<ins>id_arbitre</ins>, nom_arbitre, prenom_arbitre, niveau_certification)
+- SPONSOR (<ins>id_sponsor</ins>, nom_sponsor, email_sponsor)
+- MATCH (<ins>id_match</ins>, date_heure, statut_match, score_equipe_a, score_equipe_b, #id_tournoi, #id_equipe_a, #id_equipe_b, #id_serveur, #id_arbitre)
+- MANCHE (<ins>id_match</ins>, <ins>numero_manche</ins>, nom_map, duree_seconde, #id_equipe_gagnante)
+- APPARTENIR (<ins>#id_joueur</ins>, <ins>#id_equipe</ins>)
+- PARTICIPER (<ins>#id_equipe</ins>, <ins>#id_tournoi</ins>)
+- SPONSORISER (<ins>#id_sponsor</ins>, <ins>#id_tournoi</ins>)
