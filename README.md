@@ -76,4 +76,7 @@ Veille à ce que tous les attributs soient en 3FN (atomiques, sans dépendance p
 | | `duree_seconde` | INT | NOT NULL |
 
 ## Étape 2 : Modèle Conceptuel de Données (MCD)
-Voir MINIPROJET.loo
+
+![Modèle Conceptuel de Données](./MCD.png)
+
+> Le fichier source Looping est disponible dans le dépôt sous le nom `MINIPROJET.loo`.
