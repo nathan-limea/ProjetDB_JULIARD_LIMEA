@@ -86,18 +86,16 @@ Veille à ce que tous les attributs soient en 3FN (atomiques, sans dépendance p
 
 ## Étape 3 : MLD et MPD 
 
-### III.A. MLD 
+### III.A. MLD
 
-JOUEUR (<ins>id_joueur</ins>, pseudo, email, mot_de_passe, date_inscription, #id_joueur_parrain)
-EQUIPE (<ins>id_equipe</ins>, nom_equipe, date_creation, #id_joueur)
-TOURNOI (<ins>id_tournoi</ins>, nom_tournoi, jeu, cash_prize, date_debut, date_fin)
-SERVEUR (<ins>id_serveur</ins>, nom_serveur, adresse_ip, region)
-ARBITRE (<ins>id_arbitre</ins>, nom_arbitre, prenom_arbitre, niveau_certification)
-SPONSOR (<ins>id_sponsor</ins>, nom_sponsor, email_sponsor)
-
-MATCH (<ins>id_match</ins>, date_heure, statut_match, score_equipe_a, score_equipe_b, #id_tournoi, #id_equipe_a, #id_equipe_b, #id_serveur, #id_arbitre)
-MANCHE (<ins>id_match</ins>, <ins>numero_manche</ins>, nom_map, duree_seconde, #id_equipe_gagnante)
-
-APPARTENIR (<ins>#id_joueur</ins>, <ins>#id_equipe</ins>)
-PARTICIPER (<ins>#id_equipe</ins>, <ins>#id_tournoi</ins>)
-SPONSORISER (<ins>#id_sponsor</ins>, <ins>#id_tournoi</ins>)
+* JOUEUR (<ins>id_joueur</ins>, pseudo, email, mot_de_passe, date_inscription, #id_joueur_parrain)
+* EQUIPE (<ins>id_equipe</ins>, nom_equipe, date_creation, #id_joueur)
+* TOURNOI (<ins>id_tournoi</ins>, nom_tournoi, jeu, cash_prize, date_debut, date_fin)
+* SERVEUR (<ins>id_serveur</ins>, nom_serveur, adresse_ip, region)
+* ARBITRE (<ins>id_arbitre</ins>, nom_arbitre, prenom_arbitre, niveau_certification)
+* SPONSOR (<ins>id_sponsor</ins>, nom_sponsor, email_sponsor)
+* MATCH (<ins>id_match</ins>, date_heure, statut_match, score_equipe_a, score_equipe_b, #id_tournoi, #id_equipe_a, #id_equipe_b, #id_serveur, #id_arbitre)
+* MANCHE (<ins>id_match</ins>, <ins>numero_manche</ins>, nom_map, duree_seconde, #id_equipe_gagnante)
+* APPARTENIR (<ins>#id_joueur</ins>, <ins>#id_equipe</ins>)
+* PARTICIPER (<ins>#id_equipe</ins>, <ins>#id_tournoi</ins>)
+* SPONSORISER (<ins>#id_sponsor</ins>, <ins>#id_tournoi</ins>)
