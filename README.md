@@ -80,6 +80,6 @@ Veille à ce que tous les attributs soient en 3FN (atomiques, sans dépendance p
 
 ## Étape 2 : Modèle Conceptuel de Données (MCD)
 
-![Modèle Conceptuel de Données](./MCD.png)
+![Modèle Conceptuel de Données](./MCD_screenshot.png)
 
 > Le fichier source Looping est disponible dans le dépôt sous le nom [`MCD.loo`](./MCD.loo)
