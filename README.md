@@ -149,7 +149,9 @@ Dans ce plan, le système réalise d'abord la jointure complète entre toutes le
 Lecture des tables sources : $5 + 5 = 10$ lignes lues.
 - Jointure ($\bowtie$) : croisement de 5 tournois et 5 jeux $\rightarrow 5 \times 5 = 25$ opérations intermédiaires pour générer 5 lignes jointes.
 - Sélection ($\sigma$) : évaluation de la condition sur les 5 lignes jointes $\rightarrow 5$ opérations (conserve 2 lignes).
-- Projection ($\pi$) : extraction sur les 2 lignes restantes $\rightarrow 2$ opérations.Coût total = $10 + 25 + 5 + 2 = 42$ opérations.
+- Projection ($\pi$) : extraction sur les 2 lignes restantes $\rightarrow 2$ opérations.
+- 
+Coût total = $10 + 25 + 5 + 2 = 42$ opérations.
 
 #### Plan B : Poussée de la sélection / Push-down Predicate (Optimisé)
 
@@ -164,7 +166,9 @@ Dans ce plan, la sélection est poussée au plus bas de l'arbre sur la table Jeu
 Lecture des tables sources : $5 + 5 = 10$ lignes lues.
 - Sélection ($\sigma$) en amont sur Jeu : filtrage sur 5 jeux $\rightarrow 5$ opérations (conserve 2 jeux).
 - Jointure ($\bowtie$) sur données réduites : croisement de 5 tournois et 2 jeux filtrés $\rightarrow 5 \times 2 = 10$ opérations (génère 2 lignes).
-- Projection ($\pi$) : extraction sur les 2 lignes restantes $\rightarrow 2$ opérations.Coût total = $10 + 5 + 10 + 2 = 27$ opérations.
+- Projection ($\pi$) : extraction sur les 2 lignes restantes $\rightarrow 2$ opérations.
+
+Coût total = $10 + 5 + 10 + 2 = 27$ opérations.
 
 #### Conclusion sur l'optimisation
 
