@@ -1,0 +1,14 @@
+Prompt IA :
+Donne les requêtes d’insertion permettant de remplir la base de données e-sport dont le modèle relationnel est le suivant :
+
+Jeu (id_jeu, nom_jeu, editeur) - Clé primaire : id_jeu
+
+Equipe (id_equipe, nom_equipe, date_creation) - Clé primaire : id_equipe
+
+Joueur (id_joueur, pseudo, prenom, nom, #id_equipe) - Clé primaire : id_joueur, Clé étrangère : id_equipe
+
+Tournoi (id_tournoi, nom_tournoi, date_debut, date_fin, #id_jeu) - Clé primaire : id_tournoi, Clé étrangère : id_jeu
+
+Match_Esport (id_match, date_match, #id_tournoi, #id_equipe1, #id_equipe2, score_equipe1, score_equipe2) - Clé primaire : id_match, Clés étrangères : id_tournoi, id_equipe1, id_equipe2
+
+Il doit y avoir au moins 5 jeux, 5 équipes, 15 joueurs aux origines variées et mixtes, 5 tournois et 10 matchs. Les clés étrangères doivent faire référence aux clés primaires existantes en remplissant les tables sans dépendances en premier.
