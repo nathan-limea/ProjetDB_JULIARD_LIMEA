@@ -42,32 +42,32 @@ Veille à ce que tous les attributs soient en 3FN (atomiques, sans dépendance p
 
 | Entité / Association | Code attribut | Type de donnée | Contraintes / Propriétés |
 | :--- | :--- | :--- | :--- |
-| **JOUEUR** | `id_joueur` | INT | PK, Auto-increment |
+| **JOUEUR** | `id_joueur` | INT | PK |
 | | `pseudo` | VARCHAR(50) | UNIQUE, NOT NULL |
 | | `email` | VARCHAR(255) | UNIQUE, NOT NULL |
 | | `mot_de_passe` | VARCHAR(255) | NOT NULL |
 | | `date_inscription` | DATE | NOT NULL |
-| **EQUIPE** | `id_equipe` | INT | PK, Auto-increment |
+| **EQUIPE** | `id_equipe` | INT | PK |
 | | `nom_equipe` | VARCHAR(100) | NOT NULL |
 | | `date_creation` | DATE | NOT NULL |
-| **TOURNOI** | `id_tournoi` | INT | PK, Auto-increment |
+| **TOURNOI** | `id_tournoi` | INT | PK |
 | | `nom_tournoi` | VARCHAR(100) | NOT NULL |
 | | `jeu` | VARCHAR(50) | NOT NULL |
 | | `cash_prize` | DECIMAL(10,2) | NOT NULL, >= 0 |
-| | `date_debut` | DATE / DATETIME | NOT NULL |
-| | `date_fin` | DATE / DATETIME | NOT NULL |
-| **SPONSOR** | `id_sponsor` | INT | PK, Auto-increment |
+| | `date_debut` | DATETIME | NOT NULL |
+| | `date_fin` | DATETIME | NOT NULL |
+| **SPONSOR** | `id_sponsor` | INT | PK |
 | | `nom_sponsor` | VARCHAR(100) | NOT NULL |
 | | `email_sponsor` | VARCHAR(255) | NOT NULL |
-| **SERVEUR** | `id_serveur` | INT | PK, Auto-increment |
+| **SERVEUR** | `id_serveur` | INT | PK |
 | | `nom_serveur` | VARCHAR(100) | NOT NULL |
 | | `adresse_ip` | VARCHAR(45) | NOT NULL |
 | | `region` | VARCHAR(30) | NOT NULL |
-| **ARBITRE** | `id_arbitre` | INT | PK, Auto-increment |
+| **ARBITRE** | `id_arbitre` | INT | PK |
 | | `nom_arbitre` | VARCHAR(50) | NOT NULL |
 | | `prenom_arbitre` | VARCHAR(50) | NOT NULL |
 | | `niveau_certification` | VARCHAR(30) | NOT NULL |
-| **MATCH** | `id_match` | INT | PK, Auto-increment |
+| **MATCH** | `id_match` | INT | PK |
 | | `date_heure` | DATETIME | NOT NULL |
 | | `statut_match` | VARCHAR(20) | NOT NULL |
 | | `score_equipe_a` | INT | DEFAULT 0 |
@@ -82,4 +82,4 @@ Veille à ce que tous les attributs soient en 3FN (atomiques, sans dépendance p
 
 ![Modèle Conceptuel de Données](./MCD.png)
 
-> Le fichier source Looping est disponible dans le dépôt sous le nom `MCD.loo`.
+> Le fichier source Looping est disponible dans le dépôt sous le nom [`MCD.loo`](./MCD.loo).
