@@ -102,3 +102,20 @@
 - APPARTENIR (<ins>#id_joueur</ins>, <ins>#id_equipe</ins>)
 - PARTICIPER (<ins>#id_equipe</ins>, <ins>#id_tournoi</ins>)
 - SPONSORISER (<ins>#id_sponsor</ins>, <ins>#id_tournoi</ins>)
+
+
+## Étude des plans d'exécution
+
+Pour illustrer l'optimisation des requêtes, nous avons analysé une requête de sélection et de jointure complexe : la recherche des noms de tournois et des éditeurs associés pour l'éditeur `'Riot Games'`.
+
+### 1. Requête SQL analysée:
+
+SELECT t.nom_tournoi, j.editeur 
+FROM Tournoi t
+JOIN Jeu j ON t.id_jeu = j.id_jeu 
+WHERE j.editeur = 'Riot Games';
+
+Cette requête combine trois opérateurs de l'algèbre relationnelle :La sélection ($\sigma$) : filtre les lignes de la table Jeu où editeur = 'Riot Games'.La jointure ($\bowtie$) : associe les tables Tournoi et Jeu sur id_jeu.La projection ($\pi$) : extrait les colonnes nom_tournoi et editeur.2. Comparaison des plans d'exécutionPlan A : Jointure globale avant sélection (Non optimisé)Dans ce plan, le système réalise d'abord la jointure complète entre toutes les lignes de Tournoi et de Jeu, puis filtre le résultat.
+Arbre relationnel (Plan A) : (./Arbre_A.png)
+
+Calcul du coût (Plan A) :Lecture des tables sources : $5 + 5 = 10$ lignes lues.Jointure ($\bowtie$) : croisement de 5 tournois et 5 jeux $\rightarrow 5 \times 5 = 25$ opérations intermédiaires pour générer 5 lignes jointes.Sélection ($\sigma$) : évaluation de la condition sur les 5 lignes jointes $\rightarrow 5$ opérations (conserve 2 lignes).Projection ($\pi$) : extraction sur les 2 lignes restantes $\rightarrow 2$ opérations.Coût total = $10 + 25 + 5 + 2 = 42$ opérations.Plan B : Poussée de la sélection / Push-down Predicate (Optimisé)Dans ce plan, la sélection est poussée au plus bas de l'arbre sur la table Jeu avant de réaliser la jointure.Arbre relationnel (Plan B) : (./Arbre_B.png)
