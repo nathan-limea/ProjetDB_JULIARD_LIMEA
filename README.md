@@ -104,7 +104,9 @@
 - SPONSORISER (<ins>#id_sponsor</ins>, <ins>#id_tournoi</ins>)
 
 
-## 1. Scénario d'utilisation
+## Étape 5 : interrogation de la BD 
+
+### Scénario d'utilisation
 
 * **Acteur / Rôle** : Analyste Data / Manager Sportif au sein de la structure e-sport.
 * **Contexte & Objectif** : Suivre l'efficacité des joueurs, analyser les résultats des matchs par tournoi, identifier les jeux générant le plus de compétitions et ajuster la stratégie de recrutement ainsi que le planning d'entraînement des équipes.
@@ -126,32 +128,46 @@ FROM Tournoi t
 JOIN Jeu j ON t.id_jeu = j.id_jeu 
 WHERE j.editeur = 'Riot Games';
 ```
+Opérateurs algébriques utilisés :
 
-Cette requête combine trois opérateurs de l'algèbre relationnelle :
+- La sélection ($\sigma$) : filtre les lignes de la table Jeu vérifiant editeur = 'Riot Games'.
+- La jointure ($\bowtie$) : associe la table Tournoi et la table Jeu sur la condition Tournoi.id_jeu = Jeu.id_jeu.
+- La projection ($\pi$) : extrait uniquement les attributs nom_tournoi et editeur.
 
-- La sélection ($\sigma$) : filtre les lignes de la table Jeu où editeur = 'Riot Games'.
-- La jointure ($\bowtie$) : associe les tables Tournoi et Jeu sur id_jeu.
-- La projection ($\pi$) : extrait les colonnes nom_tournoi et editeur.
+### 2. Comparaison des plans d'exécution
 
-2. Comparaison des plans d'exécution
+#### Plan A : Jointure globale avant sélection (Non optimisé)
 
-Plan A : Jointure globale avant sélection (Non optimisé)Dans ce plan, le système réalise d'abord la jointure complète entre toutes les lignes de Tournoi et de Jeu, puis filtre le résultat.
-Arbre relationnel (Plan A) : 
+Dans ce plan, le système réalise d'abord la jointure complète entre toutes les lignes de Tournoi et de Jeu, puis filtre le résultat.
+
+##### Arbre relationnel (Plan A) : 
 
 <img src="./Arbre_A.png" alt="Arbre relationnel Plan A" width="400"/>
 
-Calcul du coût (Plan A) :Lecture des tables sources : $5 + 5 = 10$ lignes lues.Jointure ($\bowtie$) : croisement de 5 tournois et 5 jeux $\rightarrow 5 \times 5 = 25$ opérations intermédiaires pour générer 5 lignes jointes.
+##### Calcul du coût (Plan A) :
+
+Lecture des tables sources : $5 + 5 = 10$ lignes lues.
+Jointure ($\bowtie$) : croisement de 5 tournois et 5 jeux $\rightarrow 5 \times 5 = 25$ opérations intermédiaires pour générer 5 lignes jointes.
 Sélection ($\sigma$) : évaluation de la condition sur les 5 lignes jointes $\rightarrow 5$ opérations (conserve 2 lignes).
 Projection ($\pi$) : extraction sur les 2 lignes restantes $\rightarrow 2$ opérations.Coût total = $10 + 25 + 5 + 2 = 42$ opérations.
 
-Plan B : Poussée de la sélection / Push-down Predicate (Optimisé)Dans ce plan, la sélection est poussée au plus bas de l'arbre sur la table Jeu avant de réaliser la jointure.
-Arbre relationnel (Plan B) : 
+#### Plan B : Poussée de la sélection / Push-down Predicate (Optimisé)
+
+Dans ce plan, la sélection est poussée au plus bas de l'arbre sur la table Jeu avant de réaliser la jointure.
+
+##### Arbre relationnel (Plan B) : 
 
 <img src="./Arbre_B.png" alt="Arbre relationnel Plan B" width="400"/>
 
-Calcul du coût (Plan B) :Lecture des tables sources : $5 + 5 = 10$ lignes lues.Sélection ($\sigma$) en amont sur Jeu : filtrage sur 5 jeux $\rightarrow 5$ opérations (conserve 2 jeux).Jointure ($\bowtie$) sur données réduites : croisement de 5 tournois et 2 jeux filtrés $\rightarrow 5 \times 2 = 10$ opérations (génère 2 lignes).
+##### Calcul du coût (Plan B) :
+
+Lecture des tables sources : $5 + 5 = 10$ lignes lues.
+Sélection ($\sigma$) en amont sur Jeu : filtrage sur 5 jeux $\rightarrow 5$ opérations (conserve 2 jeux).
+Jointure ($\bowtie$) sur données réduites : croisement de 5 tournois et 2 jeux filtrés $\rightarrow 5 \times 2 = 10$ opérations (génère 2 lignes).
 Projection ($\pi$) : extraction sur les 2 lignes restantes $\rightarrow 2$ opérations.Coût total = $10 + 5 + 10 + 2 = 27$ opérations.
 
-Conclusion sur l'optimisation
+#### Conclusion sur l'optimisation
+
 Le Plan B est le plan d'exécution optimisé retenu. 
-En appliquant l'opérateur de sélection ($\sigma$) au plus près des données sources (Push-down Predicate), on réduit la table Jeu de 5 à 2 lignes avant la jointure. Cela diminue le nombre total d'instructions de 42 à 27, évitant au moteur de traiter des données inutiles lors de l'étape de jointure.  
+En appliquant l'opérateur de sélection ($\sigma$) au plus près des données sources (Push-down Predicate), on réduit la table Jeu de 5 à 2 lignes avant la jointure. 
+Cela diminue le nombre total d'instructions de 42 à 27, évitant au moteur de traiter des données inutiles lors de l'étape de jointure.  
