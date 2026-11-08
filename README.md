@@ -118,9 +118,10 @@ WHERE j.editeur = 'Riot Games';
 ```
 
 Cette requête combine trois opérateurs de l'algèbre relationnelle :
-La sélection ($\sigma$) : filtre les lignes de la table Jeu où editeur = 'Riot Games'.
-La jointure ($\bowtie$) : associe les tables Tournoi et Jeu sur id_jeu.
-La projection ($\pi$) : extrait les colonnes nom_tournoi et editeur.
+
+- La sélection ($\sigma$) : filtre les lignes de la table Jeu où editeur = 'Riot Games'.
+- La jointure ($\bowtie$) : associe les tables Tournoi et Jeu sur id_jeu.
+- La projection ($\pi$) : extrait les colonnes nom_tournoi et editeur.
 
 2. Comparaison des plans d'exécution
 
