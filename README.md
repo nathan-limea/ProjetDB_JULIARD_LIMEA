@@ -110,10 +110,12 @@ Pour illustrer l'optimisation des requêtes, nous avons analysé une requête de
 
 ### 1. Requête SQL analysée:
 
+```
 SELECT t.nom_tournoi, j.editeur 
 FROM Tournoi t
 JOIN Jeu j ON t.id_jeu = j.id_jeu 
 WHERE j.editeur = 'Riot Games';
+```
 
 Cette requête combine trois opérateurs de l'algèbre relationnelle :
 La sélection ($\sigma$) : filtre les lignes de la table Jeu où editeur = 'Riot Games'.
