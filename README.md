@@ -104,6 +104,16 @@
 - SPONSORISER (<ins>#id_sponsor</ins>, <ins>#id_tournoi</ins>)
 
 
+## 1. Scénario d'utilisation
+
+* **Acteur / Rôle** : Analyste Data / Manager Sportif au sein de la structure e-sport.
+* **Contexte & Objectif** : Suivre l'efficacité des joueurs, analyser les résultats des matchs par tournoi, identifier les jeux générant le plus de compétitions et ajuster la stratégie de recrutement ainsi que le planning d'entraînement des équipes.
+* **Données à extraire** :
+  - Liste des tournois programmés sur des périodes données et jeux associés.
+  - Statistiques de performance des équipes (scores moyens, scores maximaux par tournoi).
+  - Effectifs des joueurs par équipe et historique des confrontations.
+  - Identification des jeux inutilisés et des équipes actives sans joueurs affectés.
+    
 ## Étude des plans d'exécution
 
 Pour illustrer l'optimisation des requêtes, nous avons analysé une requête de sélection et de jointure complexe : la recherche des noms de tournois et des éditeurs associés pour l'éditeur `'Riot Games'`.
