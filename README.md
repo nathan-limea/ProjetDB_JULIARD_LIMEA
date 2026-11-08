@@ -82,4 +82,4 @@ Veille à ce que tous les attributs soient en 3FN (atomiques, sans dépendance p
 
 ![Modèle Conceptuel de Données](./MCD.png)
 
-> Le fichier source Looping est disponible dans le dépôt sous le nom [`MCD.loo`](.
+> Le fichier source Looping est disponible dans le dépôt sous le nom [`MCD.loo`](./MCD.loo)
