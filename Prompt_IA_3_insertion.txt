@@ -1,14 +1,59 @@
 Prompt IA :
-Donne les requêtes d’insertion permettant de remplir la base de données e-sport dont le modèle relationnel est le suivant :
 
-Jeu (id_jeu, nom_jeu, editeur) - Clé primaire : id_jeu
+Donne l'intégralité des requêtes SQL INSERT INTO permettant de remplir la base de données e-sport avec des données de test cohérentes et réalistes.
 
-Equipe (id_equipe, nom_equipe, date_creation) - Clé primaire : id_equipe
+Le Modèle Relationnel (MLD) de la base de données est le suivant :
 
-Joueur (id_joueur, pseudo, prenom, nom, #id_equipe) - Clé primaire : id_joueur, Clé étrangère : id_equipe
+JOUEUR (id_joueur, pseudo, email, mot_de_passe, date_inscription, #id_joueur_parrain)
 
-Tournoi (id_tournoi, nom_tournoi, date_debut, date_fin, #id_jeu) - Clé primaire : id_tournoi, Clé étrangère : id_jeu
+Clé primaire : id_joueur | Clé étrangère : #id_joueur_parrain (auto-référence vers JOUEUR, nullable)
 
-Match_Esport (id_match, date_match, #id_tournoi, #id_equipe1, #id_equipe2, score_equipe1, score_equipe2) - Clé primaire : id_match, Clés étrangères : id_tournoi, id_equipe1, id_equipe2
+EQUIPE (id_equipe, nom_equipe, date_creation, #id_joueur)
 
-Il doit y avoir au moins 5 jeux, 5 équipes, 15 joueurs aux origines variées et mixtes, 5 tournois et 10 matchs. Les clés étrangères doivent faire référence aux clés primaires existantes en remplissant les tables sans dépendances en premier.
+Clé primaire : id_equipe | Clé étrangère : #id_joueur (capitaine/référent, nullable)
+
+TOURNOI (id_tournoi, nom_tournoi, jeu, cash_prize, date_debut, date_fin)
+
+Clé primaire : id_tournoi
+
+(Note : Le jeu est un attribut textuel direct, il n'y a pas de table Jeu séparée)
+
+SERVEUR (id_serveur, nom_serveur, adresse_ip, region)
+
+Clé primaire : id_serveur
+
+ARBITRE (id_arbitre, nom_arbitre, prenom_arbitre, niveau_certification)
+
+Clé primaire : id_arbitre
+
+SPONSOR (id_sponsor, nom_sponsor, email_sponsor)
+
+Clé primaire : id_sponsor
+
+MATCH (id_match, date_heure, statut_match, score_equipe_a, score_equipe_b, #id_tournoi, #id_equipe_a, #id_equipe_b, #id_serveur, #id_arbitre)
+
+Clé primaire : id_match | Clés étrangères : #id_tournoi, #id_equipe_a, #id_equipe_b, #id_serveur, #id_arbitre
+
+MANCHE (id_match, numero_manche, nom_map, duree_seconde, #id_equipe_gagnante)
+
+Clé primaire composée : (id_match, numero_manche) | Clés étrangères : #id_match, #id_equipe_gagnante
+
+APPARTENIR (#id_joueur, #id_equipe)
+
+Clé primaire composée : (#id_joueur, #id_equipe)
+
+PARTICIPER (#id_equipe, #id_tournoi)
+
+Clé primaire composée : (#id_equipe, #id_tournoi)
+
+SPONSORISER (#id_sponsor, #id_tournoi)
+
+Clé primaire composée : (#id_sponsor, #id_tournoi)
+
+Consignes strictes pour le jeu de données :
+
+Respecter l'ordre des dépendances d'insertion (remplir d'abord les tables indépendantes comme JOUEUR, EQUIPE, TOURNOI, SERVEUR, ARBITRE, SPONSOR, puis les tables dépendantes comme MATCH, MANCHE, APPARTENIR, PARTICIPER, SPONSORISER).
+
+Prévoir au moins 5 équipes, 15 joueurs (aux pseudos variés et réalistes e-sport), 5 tournois (couvrant au moins 3 jeux différents comme Valorant, CS2, League of Legends), 10 matchs (avec manches associées), 3 serveurs, 3 arbitres et 3 sponsors.
+
+S'assurer que toutes les clés étrangères font référence à des clés primaires réellement générées dans les insertions précédentes.
