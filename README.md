@@ -130,21 +130,21 @@ L'ensemble des 20 requêtes SQL couvrant les différentes catégories requises e
  
 ### 3. Étude des plans d'exécution
 
-Pour illustrer l'optimisation des requêtes, nous avons analysé une requête de sélection et de jointure complexe : la recherche des noms de tournois et des éditeurs associés pour l'éditeur `'Riot Games'`.
+Pour illustrer l'optimisation des requêtes par l'algèbre relationnelle, nous avons analysé la recherche de l'identifiant des matchs et des noms de tournois associés pour le jeu `Valorant`.
 
 #### a. Requête SQL analysée:
 
 ```
-SELECT t.nom_tournoi, j.editeur 
-FROM Tournoi t
-JOIN Jeu j ON t.id_jeu = j.id_jeu 
-WHERE j.editeur = 'Riot Games';
+SELECT m.id_match, t.nom_tournoi 
+FROM TOURNOI t 
+JOIN MATCH_ESPORT m ON t.id_tournoi = m.id_tournoi 
+WHERE t.jeu = 'Valorant';
 ```
 Opérateurs algébriques utilisés :
 
-- La sélection ($\sigma$) : filtre les lignes de la table Jeu vérifiant editeur = 'Riot Games'.
-- La jointure ($\bowtie$) : associe la table Tournoi et la table Jeu sur la condition Tournoi.id_jeu = Jeu.id_jeu.
-- La projection ($\pi$) : extrait uniquement les attributs nom_tournoi et editeur.
+- La sélection ($\sigma$) : filtre les lignes de la table TOURNOI vérifiant jeu = 'Valorant'.
+- La jointure ($\bowtie$) : associe la table TOURNOI et la table MATCH_ESPORT sur la condition t.id_tournoi = m.id_tournoi.
+- La projection ($\pi$) : extrait uniquement les attributs id_match et nom_tournoi.
 
 #### b. Comparaison des plans d'exécution
 
