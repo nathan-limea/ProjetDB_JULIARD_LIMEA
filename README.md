@@ -137,20 +137,20 @@ Pour illustrer l'optimisation des requêtes par l'algèbre relationnelle, nous a
 ```
 SELECT m.id_match, t.nom_tournoi 
 FROM TOURNOI t 
-JOIN MATCH_ESPORT m ON t.id_tournoi = m.id_tournoi 
+JOIN MATCH_E m ON t.id_tournoi = m.id_tournoi 
 WHERE t.jeu = 'Valorant';
 ```
 Opérateurs algébriques utilisés :
 
 - La sélection ($\sigma$) : filtre les lignes de la table TOURNOI vérifiant jeu = 'Valorant'.
-- La jointure ($\bowtie$) : associe la table TOURNOI et la table MATCH_ESPORT sur la condition t.id_tournoi = m.id_tournoi.
+- La jointure ($\bowtie$) : associe la table TOURNOI et la table MATCH_E sur la condition t.id_tournoi = m.id_tournoi.
 - La projection ($\pi$) : extrait uniquement les attributs id_match et nom_tournoi.
 
 #### b. Comparaison des plans d'exécution
 
 ##### Plan A : Jointure globale avant sélection (Non optimisé)
 
-Dans ce plan, le système réalise d'abord la jointure complète entre toutes les lignes de Tournoi et de Jeu, puis filtre le résultat.
+Dans ce plan, le système réalise d'abord la jointure complète entre toutes les lignes de TOURNOI et de MATCH_E, puis filtre le résultat par la sélection.
 
 ###### Arbre relationnel (Plan A) : 
 
