@@ -189,5 +189,5 @@ Coût total (Plan B) = 5 (lectures) + 2 (sélection) + 3 (jointure) + 2 (project
 ##### Conclusion sur l'optimisation
 
 Le Plan B est le plan d'exécution optimisé retenu. 
-En appliquant l'opérateur de sélection ($\sigma$) au plus près des données sources, on réduit la table Jeu de 5 à 2 lignes avant la jointure. 
-Cela diminue le nombre total d'instructions de 42 à 27, évitant au moteur de traiter des données inutiles lors de l'étape de jointure.  
+En appliquant l'opérateur de sélection ($\sigma$) au plus près de la source de données, la table TOURNOI est filtrée de 2 à 1 seule ligne avant d'effectuer la jointure.
+Sur nos données de test, le coût global descend de 13 à 12 opérations. Sur un volume réel plus important (par exemple 5 tournois et 25 matchs), cet écart devient décisif en passant de 85 à 45 opérations, éliminant ainsi les comparaisons de jointure inutiles et réduisant l'empreinte mémoire du moteur SQL. 
