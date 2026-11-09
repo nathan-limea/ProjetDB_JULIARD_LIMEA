@@ -154,7 +154,7 @@ Dans ce plan, le système réalise d'abord la jointure complète entre toutes le
 
 ###### Arbre relationnel (Plan A) : 
 
-<img src="./Arbre_A.png" alt="Arbre relationnel Plan A" width="400"/>
+<img src="./Arbre_A_screenshot.png" alt="Arbre relationnel Plan A" width="400"/>
 
 ###### Calcul du coût (Plan A) :
 
@@ -172,7 +172,7 @@ Dans ce plan, la sélection est poussée au plus bas de l'arbre sur la table TOU
 
 ###### Arbre relationnel (Plan B) : 
 
-<img src="./Arbre_B.png" alt="Arbre relationnel Plan B" width="400"/>
+<img src="./Arbre_B_screenshot.png" alt="Arbre relationnel Plan B" width="400"/>
 
 ###### Calcul du coût (Plan B) :
 
