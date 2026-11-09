@@ -158,16 +158,17 @@ Dans ce plan, le système réalise d'abord la jointure complète entre toutes le
 
 ###### Calcul du coût (Plan A) :
 
-Lecture des tables sources : $5 + 5 = 10$ lignes lues.
-- Jointure ($\bowtie$) : croisement de 5 tournois et 5 jeux $\rightarrow 5 \times 5 = 25$ opérations intermédiaires pour générer 5 lignes jointes.
-- Sélection ($\sigma$) : évaluation de la condition sur les 5 lignes jointes $\rightarrow 5$ opérations (conserve 2 lignes).
-- Projection ($\pi$) : extraction sur les 2 lignes restantes $\rightarrow 2$ opérations.
- 
-Coût total = $10 + 25 + 5 + 2 = 42$ opérations.
+Lecture des données sources : 2 lignes (TOURNOI) + 3 lignes (MATCH_E) = 5 lignes lues.
+
+- Jointure ($\bowtie$) : Croisement global des 2 tournois avec les 3 matchs $\rightarrow$ 3 comparaisons de jointure (génère 3 lignes jointes).
+- Sélection ($\sigma$) : Évaluation du filtre jeu = 'Valorant' sur les 3 lignes jointes $\rightarrow$ 3 opérations (conserve 2 matchs du tournoi Valorant).
+- Projection ($\pi$) : Extraction des 2 colonnes (id_match, nom_tournoi) sur les 2 lignes obtenues $\rightarrow$ 2 opérations.
+
+Coût total (Plan A) = 5 (lectures) + 3 (jointure) + 3 (sélection) + 2 (projection) = 13 opérations
 
 ##### Plan B : Poussée de la sélection (Optimisé)
 
-Dans ce plan, la sélection est poussée au plus bas de l'arbre sur la table Jeu avant de réaliser la jointure.
+Dans ce plan, la sélection est poussée au plus bas de l'arbre sur la table TOURNOI avant de réaliser la jointure avec MATCH_E.
 
 ###### Arbre relationnel (Plan B) : 
 
@@ -175,12 +176,15 @@ Dans ce plan, la sélection est poussée au plus bas de l'arbre sur la table Jeu
 
 ###### Calcul du coût (Plan B) :
 
-Lecture des tables sources : $5 + 5 = 10$ lignes lues.
-- Sélection ($\sigma$) en amont sur Jeu : filtrage sur 5 jeux $\rightarrow 5$ opérations (conserve 2 jeux).
-- Jointure ($\bowtie$) sur données réduites : croisement de 5 tournois et 2 jeux filtrés $\rightarrow 5 \times 2 = 10$ opérations (génère 2 lignes).
-- Projection ($\pi$) : extraction sur les 2 lignes restantes $\rightarrow 2$ opérations.
+Lecture des données sources : 2 lignes (TOURNOI) + 3 lignes (MATCH_ESPORT) = 5 lignes lues.
 
-Coût total = $10 + 5 + 10 + 2 = 27$ opérations.
+- Sélection ($\sigma$) en amont sur TOURNOI : Filtrage du jeu 'Valorant' sur les 2 tournois $\rightarrow$ 2 opérations (réduit TOURNOI de 2 à 1 seule ligne).
+- Jointure ($\bowtie$) sur données réduites : Jointure entre le seul tournoi Valorant et les 3 matchs $\rightarrow$ 3 comparaisons (trouve directement les 2 matchs correspondants).
+- Projection ($\pi$) : Extraction des 2 colonnes sur les 2 lignes obtenues $\rightarrow$ 2 opérations.
+  
+Coût total (Plan B) = 5 (lectures) + 2 (sélection) + 3 (jointure) + 2 (projection) = 12 opérations
+
+##### (Sur un volume plus vaste comme 5 tournois et 25 matchs, l'écart passe de 85 opérations pour le Plan A à 45 pour le Plan B !)
 
 ##### Conclusion sur l'optimisation
 
